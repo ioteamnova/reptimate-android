@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="#FFF"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text=""
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:textSize="17dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:padding="10dp"/>
+
+        <ImageView
+            android:id="@+id/noti_btn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/bell"
+            android:backgroundTint="#6D71E6"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            />
+
+        <ImageView
+            android:id="@+id/search_btn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/search"
+            android:backgroundTint="#6D71E6"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="#E6E6E6"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="연결 기기"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:textSize="17dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/refresh_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/refresh"
+            android:backgroundTint="#6D71E6"
+            android:layout_gravity="center"
+            android:layout_margin="25dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#E6E6E6">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cage_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/emptyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="등록된 케이지가 없습니다."
+            android:textAppearance="?android:textAppearanceMedium"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/write_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/plus_white" />
+    </RelativeLayout>
+
+</LinearLayout>

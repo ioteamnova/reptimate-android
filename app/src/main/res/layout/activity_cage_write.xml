@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:id="@+id/diary_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/parentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#E6E6E6">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="#FFF"
+            >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="케이지 등록"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="17dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/cage_view_background2"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="케이지 이름"
+                android:textColor="#000"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/name"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="원하는 케이지 이름을 입력해주세요."
+                android:textColor="#000"
+                android:textSize="14dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/cage_view_background2"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="모듈 번호"
+                android:textColor="#000"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/module_number"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="구밉 시, 동봉된 보증서에서 확인 가능합니다."
+                android:textColor="#000"
+                android:textSize="14dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/cage_view_background2"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="온도 자동"
+                android:textColor="#000"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+                <Switch
+                    android:id="@+id/temperature_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/temperatrue_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="최소 온도"
+                    android:textColor="#000"
+                    android:textSize="14dp"/>
+
+                <EditText
+                    android:id="@+id/temperature_min"
+                    android:padding="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:layout_weight="1"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="최대 온도"
+                    android:textColor="#000"
+                    android:textSize="14dp"/>
+
+                <EditText
+                    android:id="@+id/temperature_max"
+                    android:padding="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:layout_weight="1"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/cage_view_background2"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="습도 자동"
+                    android:textColor="#000"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"/>
+
+                <Switch
+                    android:id="@+id/humidity_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/humidity_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="최소 습도"
+                    android:textColor="#000"
+                    android:textSize="14dp"/>
+
+                <EditText
+                    android:id="@+id/humidity_min"
+                    android:padding="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:layout_weight="1"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="최대 습도"
+                    android:textColor="#000"
+                    android:textSize="14dp"/>
+
+                <EditText
+                    android:id="@+id/humidity_max"
+                    android:padding="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/cage_view_background2"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="UVB 자동 조절"
+                    android:textColor="#000"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"/>
+
+                <Switch
+                    android:id="@+id/uvb_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/uvb_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="ON"
+                    android:textColor="#000"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:id="@+id/uvb_on"
+                    android:padding="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="OFF"
+                    android:textColor="#000"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:id="@+id/uvb_off"
+                    android:padding="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                android:id="@+id/confirm_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="30dp"
+                android:padding="7dp"
+                android:text="등록하기"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="#FFF"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/button_background"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

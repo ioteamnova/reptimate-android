@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/parentLayout"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="비밀번호 찾기"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            />
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <EditText
+                android:id="@+id/email_et"
+                android:padding="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:hint="이메일 인증"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/email_btn"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:background="@drawable/button_background"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:text="인증 발송"
+                android:layout_gravity="center"
+                android:textColor="#ffffff"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/email_validate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="올바른 이메일 주소만 입력 가능합니다."
+                android:textSize="12dp"
+                android:textColor="#FF1100"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/email_confirm_layout"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp">
+            <EditText
+                android:id="@+id/confirm_email_et"
+                android:padding="10dp"
+                android:background="@drawable/edit_text_background_false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:hint="인증 코드 입력"
+                android:inputType="text"
+                android:enabled="false"
+                />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="300dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_background"
+            android:text="인증 확인"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:id="@+id/confirm_email_btn"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="340dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    >
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="체중 등록"
+            android:textColor="#000"
+            android:textSize="17dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날짜"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/date"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/background_weight_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="날짜를 선택해주세요."
+            android:textSize="14dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="체중 (g)"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/weight"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/background_weight_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="체중을 입력해주세요."
+            android:textSize="14dp"
+            android:inputType="numberDecimal"
+            />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp"
+        >
+
+        <TextView
+            android:id="@+id/confirm_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="15dp"
+            android:padding="6dp"
+            android:text="저장"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="#FFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/button_background"
+            />
+    </LinearLayout>
+
+</LinearLayout>

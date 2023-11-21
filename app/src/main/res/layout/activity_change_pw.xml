@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/parentLayout"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="비밀번호 변경"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            />
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutPw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                app:passwordToggleEnabled="true"
+                android:hint="비밀번호"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pw"
+                    android:padding="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/pw_validate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="8~20자, 영문 숫자 특수문자가 모두 조합 되어야 합니다."
+                android:textSize="12dp"
+                android:textColor="#FF1100"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutRePw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                app:passwordToggleEnabled="true"
+                android:hint="비밀번호 확인">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/re_pw"
+                    android:padding="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/re_pw_validate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="비밀번호가 일치하지 않습니다."
+                android:textSize="12dp"
+                android:textColor="#FF1100"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="300dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_background"
+            android:text="비밀번호 변경"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:id="@+id/find_pw_btn"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            />
+
+    </LinearLayout>
+</ScrollView>

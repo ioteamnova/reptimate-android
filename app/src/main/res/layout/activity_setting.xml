@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="#FFF"
+            >
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/back_btn"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/finish_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:padding="10dp"
+                android:text="      "
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="설정"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="17dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="10dp"/>
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#DDDDDD">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="    알림"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/border"
+            >
+            <TextView
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:text="전체 알림"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                />
+            <Switch
+                android:id="@+id/all_noti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_marginRight="10dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/border"
+            >
+            <TextView
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:text="게시글 알림"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                />
+            <Switch
+                android:id="@+id/board_noti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_marginRight="10dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/list2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/border"
+            >
+            <TextView
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:text="광고 알림"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                />
+            <Switch
+                android:id="@+id/ad_noti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_marginRight="10dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/list3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:text="케이지 알림"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                />
+            <Switch
+                android:id="@+id/cage_noti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_marginRight="10dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#DDDDDD">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="    계정"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/logout"
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="로그아웃"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/border"
+            />
+
+        <TextView
+            android:id="@+id/user_del"
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="회원 탈퇴"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/border"
+            />
+
+    </LinearLayout>
+</ScrollView>

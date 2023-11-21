@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/parentLayout"
+        >
+
+        <ImageView
+            android:id="@+id/login_logo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+
+                <EditText
+                    android:id="@+id/login_id"
+                    android:padding="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="아이디"
+                    android:textSize="15dp"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp">
+
+
+                    <EditText
+                        android:id="@+id/login_pw"
+                        android:padding="10dp"
+                        android:background="@drawable/edit_text_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="비밀번호"
+                        android:textSize="15dp"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:layout_marginBottom="20dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/find_pw"
+                        android:layout_marginLeft="17dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="비밀번호를 잊으셨나요?"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="#6D71E6"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="50dp"
+                    >
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="300dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_background"
+                    android:text="로그인"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:id="@+id/login_btn"
+                    android:layout_marginBottom="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="300dp"
+                        android:layout_height="38dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/button_background2"
+                        android:text="회원가입"
+                        android:textColor="#9FAEF2"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:id="@+id/join"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        />
+
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/kakao_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/kakao_login"
+                        android:layout_marginBottom="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        />
+
+                    <TextView
+                        android:id="@+id/google_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/google_login"
+
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

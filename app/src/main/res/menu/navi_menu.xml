@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/board"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/board"
+        android:title="게시판"
+        />
+    <item
+        android:id="@+id/auction"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/auction"
+        android:title="경매"
+        />
+    <item
+        android:id="@+id/diary"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/diary"
+        android:title="다이어리"
+        />
+    <item
+        android:id="@+id/mypage"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/account"
+        android:title="마이페이지"
+        />
+</menu>

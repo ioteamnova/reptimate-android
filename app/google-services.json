@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "290736847856",
+    "project_id": "iot-teamnova",
+    "storage_bucket": "iot-teamnova.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290736847856:android:19f28b38a34ae6782f3b35",
+        "android_client_info": {
+          "package_name": "com.example.iot_teamnova"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "290736847856-gsh3g9on5k649qh6pjiiac4hqdsrbesn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iot_teamnova",
+            "certificate_hash": "9924ac5cddca459e272eb18bae99846f75a6b19f"
+          }
+        },
+        {
+          "client_id": "290736847856-eogrulatqn86dj3bmn3qchtol6hj54e0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqn2JgqM65HZdb3LPcsMlTThLUkgW5cxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "290736847856-eogrulatqn86dj3bmn3qchtol6hj54e0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "290736847856-nlnj2ljqu0oulv7n2gm8etkpof510uqk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "store.reptimate.ReptiMate"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

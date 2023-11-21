@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/cage_view_background2"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="습도 자동"
+                android:textColor="#000"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <Switch
+                android:id="@+id/humidity_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:track="@drawable/setting_switch_track"
+                android:thumb="@drawable/setting_switch_thumb"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/humidity_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="최소 습도 (%)"
+                android:textColor="#000"
+                android:textSize="14dp"/>
+
+            <EditText
+                android:id="@+id/humidity_min"
+                android:padding="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="최대 습도 (%)"
+                android:textColor="#000"
+                android:textSize="14dp"/>
+
+            <EditText
+                android:id="@+id/humidity_max"
+                android:padding="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/yesBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:backgroundTint="#DAD9D9"
+            android:text="적용" />
+
+        <Button
+            android:layout_marginRight="3dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/noBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:backgroundTint="#DAD9D9"
+            android:text="취소" />
+    </LinearLayout>
+
+</LinearLayout>

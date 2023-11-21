@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="replace"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
+    <application
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/reptimate_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:hardwareAccelerated="true"
+        android:theme="@style/Theme.Iot_teamnova"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.iot_teamnova.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".User.MainActivity"/>
+        <activity android:name=".User.JoinActivity"/>
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
+                <data android:host="oauth"
+                    android:scheme="kakaoacc5f5264d4bd2693ff7e975dd2e4dac" />
+            </intent-filter>
+        </activity>
+        <!-- FCM service 추가 -->
+        <service
+            android:name=".Scheduling.MyFirebaseMessagingService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+<!--        <service-->
+<!--            android:name=".Cage.MqttService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false" />-->
+        <activity android:name=".User.FindPwActivity"/>
+        <activity android:name=".User.ChangePwActivity"/>
+        <activity android:name=".User.SettingActivity"/>
+        <activity android:name=".User.UserEditActivity"/>
+        <activity android:name=".HomeActivity"/>
+        <activity android:name=".Diary.PetWriteActivity"/>
+        <activity android:name=".Diary.PetEditActivity"/>
+        <activity android:name=".Diary.PetDeleteDialog"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"/>
+        <activity android:name=".Diary.PetViewActivity"/>
+        <activity android:name=".Diary.DiaryWriteActivity"/>
+        <activity android:name=".Diary.DiaryEditActivity"/>
+        <activity android:name=".Diary.DiaryDiaryViewAcitivity"/>
+        <activity android:name=".Diary.DiaryDiaryViewImageDetailActivity"/>
+        <activity android:name=".Diary.DiaryDeleteDialog"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"
+            android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Cage.CageActivity"/>
+        <activity android:name=".Cage.CageViewActivity"/>
+        <activity android:name=".Cage.StatisticsActivity"/>
+        <activity android:name=".Cage.CageWriteActivity"/>
+        <service android:name="org.eclipse.paho.android.service.MqttService"/>
+        <activity android:name=".Cage.EditTempDialog"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"/>
+        <activity android:name=".Cage.EditHumidDialog"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"/>
+        <activity android:name=".Cage.EditUVBDialog"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"/>
+        <activity android:name=".Scheduling.ScheduleActivity"/>
+        <activity android:name=".Scheduling.ScheduleWriteActivity"/>
+        <activity android:name=".Scheduling.ScheduleEditActivity"/>
+        <activity android:name=".Scheduling.RepeatActivity"/>
+        <activity android:name=".Scheduling.ScheduleDeleteDialog"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"/>
+        <activity android:name=".Diary.WeightWriteActivity"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"/>
+        <activity android:name=".Diary.WeightEditActivity"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"/>
+        <activity android:name=".Diary.WeightDeleteDialog"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"/>
+        <activity android:name=".Scheduling.CalendarScheduleWriteActivity"/>
+        <activity android:name=".Scheduling.CalendarScheduleEditActivity"/>
+        <activity android:name=".Scheduling.CalendarScheduleDeleteDialog"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"/>
+        <activity android:name=".BoardWebViewActivity"/>
+        <activity
+            android:name=".Live.LiveActivity"
+            android:exported="true"
+            android:theme="@style/Theme.RtmpNew_streaming"
+            />
+
+    </application>
+
+</manifest>

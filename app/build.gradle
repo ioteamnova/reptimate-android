@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.iot_teamnova'
+    namespace 'com.reptimate.iot_teamnova'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.iot_teamnova"
+        applicationId "com.reptimate.iot_teamnova"
         minSdk 24
         targetSdk 33
         versionCode 1

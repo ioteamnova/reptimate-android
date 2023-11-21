@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:290736847856:android:19f28b38a34ae6782f3b35",
         "android_client_info": {
-          "package_name": "com.example.iot_teamnova"
+          "package_name": "com.reptimate.iot_teamnova"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "290736847856-gsh3g9on5k649qh6pjiiac4hqdsrbesn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.iot_teamnova",
+            "package_name": "com.reptimate.iot_teamnova",
             "certificate_hash": "9924ac5cddca459e272eb18bae99846f75a6b19f"
           }
         },

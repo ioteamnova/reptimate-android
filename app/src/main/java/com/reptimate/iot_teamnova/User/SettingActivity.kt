@@ -89,7 +89,7 @@ class SettingActivity : AppCompatActivity() {
             // 다이얼로그를 생성하기 위해 Builder 클래스 생성자를 이용해 줍니다.
             val builder = AlertDialog.Builder(this)
             builder.setTitle("본인 확인")
-                .setMessage("본인 확인을 위한 비밀번호를 입력해주세요.\n확인 버튼을 눌러주시면 탈퇴 절차가 완료됩니다.")
+                    .setMessage("본인 확인을 위한 비밀번호를 입력해주세요.\n확인 버튼을 눌러주시면 탈퇴 절차가 완료됩니다.")
                 .setView(view)
                 .setNegativeButton("취소",
                 DialogInterface.OnClickListener{ dialog, id ->

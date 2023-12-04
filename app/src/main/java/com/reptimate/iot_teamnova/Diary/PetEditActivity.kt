@@ -70,7 +70,7 @@ class PetEditActivity : AppCompatActivity() {
         binding.title.text = "반려동물 정보 수정"
         binding.confirmBtn.text = "수정 완료"
 
-        val intent: Intent = getIntent()
+        val intent: Intent = intent
         val getIdx = intent.getStringExtra("idx")
         val getName = intent.getStringExtra("name")
         val getType = intent.getStringExtra("type")

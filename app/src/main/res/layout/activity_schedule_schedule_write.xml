@@ -72,12 +72,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="스케줄 이름을 입력해주세요."
+                android:hint="스케줄 이름을 입력해주세요. (최대 12글자)"
                 android:textColor="#000"
                 android:textSize="14dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="#E8E8E8"
+                android:maxLength="12"
                 />
         </LinearLayout>
 
@@ -188,13 +189,14 @@
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:hint="내용을 입력해주세요."
+                android:hint="내용을 입력해주세요. (최대 200글자)"
                 android:textColor="#000"
                 android:textSize="14dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="#E8E8E8"
                 android:gravity="start"
+                android:maxLength="200"
                 />
         </LinearLayout>
 

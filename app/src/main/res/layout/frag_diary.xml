@@ -62,12 +62,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="검색할 반려동물의 이름을 입력해주세요."
+            android:hint="검색할 반려동물의 이름을 입력해주세요. (최대 12글자)"
             android:textColor="#000"
             android:textSize="15dp"
             android:layout_weight="1"
             android:padding="10dp"
             android:enabled="false"
+            android:maxLength="12"
             />
 
         <ImageView

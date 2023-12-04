@@ -51,6 +51,9 @@ class DiaryFragment : Fragment() {
             requireActivity().currentFocus?.clearFocus()
         }
 
+        binding.writeBtn.isEnabled = false
+        binding.searchBtn.isEnabled = false
+
         binding.writeBtn.setOnClickListener {
             val intent = Intent(binding.root.context, PetWriteActivity::class.java)
             startActivity(intent)
@@ -189,6 +192,9 @@ class DiaryFragment : Fragment() {
                                     }
                                 }
                             })
+
+                            binding.writeBtn.isEnabled = true
+                            binding.searchBtn.isEnabled = true
 
                         } catch(e: JSONException){
                             e.printStackTrace()

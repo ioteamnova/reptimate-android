@@ -77,7 +77,10 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.loginBtn.setOnClickListener{
-            println(fbToken)
+            binding.loginBtn.isEnabled = false
+            binding.kakaoLogin.isEnabled = false
+            binding.googleLogin.isEnabled = false
+
             val id = binding.loginId.text.toString()
             val pw = binding.loginPw.text.toString()
 
@@ -114,6 +117,10 @@ class MainActivity : AppCompatActivity() {
                                 finish()
                             } catch(e: JSONException){
                                 e.printStackTrace()
+                                Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                                binding.loginBtn.isEnabled = true
+                                binding.kakaoLogin.isEnabled = true
+                                binding.googleLogin.isEnabled = true
                             }
                         } else {
                             Toast.makeText(
@@ -121,6 +128,9 @@ class MainActivity : AppCompatActivity() {
                                 "아이디 혹은 비밀번호를 확인해주세요.",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            binding.loginBtn.isEnabled = true
+                            binding.kakaoLogin.isEnabled = true
+                            binding.googleLogin.isEnabled = true
                         }
                     }
                 }
@@ -149,10 +159,21 @@ class MainActivity : AppCompatActivity() {
 
         // 로그인 버튼 클릭 리스너
         binding.kakaoLogin.setOnClickListener {
+            binding.loginBtn.isEnabled = false
+            binding.kakaoLogin.isEnabled = false
+            binding.googleLogin.isEnabled = false
             // Start Kakao login process
             val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
                 if (error != null) {
                     // Handle error
+                    Toast.makeText(
+                        applicationContext,
+                        "카카오 로그인 오류.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.loginBtn.isEnabled = true
+                    binding.kakaoLogin.isEnabled = true
+                    binding.googleLogin.isEnabled = true
                 } else if (token != null) {
                     //카카오 로그인을 위한 토큰을 발급 받아서 서버로 보냄.
                     // Get authorization code
@@ -196,7 +217,22 @@ class MainActivity : AppCompatActivity() {
                                         "카카오 로그인 오류.",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    binding.loginBtn.isEnabled = true
+                                    binding.kakaoLogin.isEnabled = true
+                                    binding.googleLogin.isEnabled = true
                                 }
+                            } else {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "카카오 로그인 오류.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                binding.loginBtn.isEnabled = true
+                                binding.kakaoLogin.isEnabled = true
+                                binding.googleLogin.isEnabled = true
+                                binding.loginBtn.isEnabled = true
+                                binding.kakaoLogin.isEnabled = true
+                                binding.googleLogin.isEnabled = true
                             }
                         }
 
@@ -204,6 +240,14 @@ class MainActivity : AppCompatActivity() {
                             // 실패
                             Log.d("log",t.message.toString())
                             Log.d("log","fail")
+                            Toast.makeText(
+                                applicationContext,
+                                "카카오 로그인 오류.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            binding.loginBtn.isEnabled = true
+                            binding.kakaoLogin.isEnabled = true
+                            binding.googleLogin.isEnabled = true
                         }
                     })
                 }
@@ -226,6 +270,9 @@ class MainActivity : AppCompatActivity() {
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
         binding.googleLogin.setOnClickListener {
+            binding.loginBtn.isEnabled = false
+            binding.kakaoLogin.isEnabled = false
+            binding.googleLogin.isEnabled = false
             val signInIntent = mGoogleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -286,7 +333,19 @@ class MainActivity : AppCompatActivity() {
                                         "구글 로그인 오류.",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    binding.loginBtn.isEnabled = true
+                                    binding.kakaoLogin.isEnabled = true
+                                    binding.googleLogin.isEnabled = true
                                 }
+                            } else {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "구글 로그인 오류.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                binding.loginBtn.isEnabled = true
+                                binding.kakaoLogin.isEnabled = true
+                                binding.googleLogin.isEnabled = true
                             }
                         }
 
@@ -294,22 +353,38 @@ class MainActivity : AppCompatActivity() {
                             // 실패
                             Log.d("log",t.message.toString())
                             Log.d("log","fail")
+                            Toast.makeText(
+                                applicationContext,
+                                "구글 로그인 오류.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            binding.loginBtn.isEnabled = true
+                            binding.kakaoLogin.isEnabled = true
+                            binding.googleLogin.isEnabled = true
                         }
                     })
 
-                    Log.d("MainActivity", "handleSignInResult:$account")
-                    Log.d("MainActivity", "handleSignInResult:personName $personName")
-                    Log.d("MainActivity", "handleSignInResult:personGivenName $personGivenName")
-                    Log.d("MainActivity", "handleSignInResult:personEmail $personEmail")
-                    Log.d("MainActivity", "handleSignInResult:personId $personId")
-                    Log.d("MainActivity", "handleSignInResult:personFamilyName $personFamilyName")
-                    // access other user information as needed
-                    Log.d("MainActivity", "Access token: $accessToken")
-                    Log.d("MainActivity", "handleSignInResult:idToken $idToken")
                 } catch(e: ApiException){
                     Log.e("MainActivity", "Sign-in failed with error code: ${e.statusCode}")
+                    Toast.makeText(
+                        applicationContext,
+                        "구글 로그인 오류.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.loginBtn.isEnabled = true
+                    binding.kakaoLogin.isEnabled = true
+                    binding.googleLogin.isEnabled = true
                 }
             }
+        }else {
+            Toast.makeText(
+                applicationContext,
+                "구글 로그인 오류.",
+                Toast.LENGTH_SHORT
+            ).show()
+            binding.loginBtn.isEnabled = true
+            binding.kakaoLogin.isEnabled = true
+            binding.googleLogin.isEnabled = true
         }
     }
 

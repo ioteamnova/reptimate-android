@@ -2,15 +2,19 @@
     <!-- Base application theme. -->
     <style name="Theme.Iot_teamnova" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#6D71E6</item>
+        <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">#6D71E6</item>
+        <item name="colorSecondaryVariant">@color/white</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:timePickerStyle">@style/MyTimePickerTheme</item>
     </style>
 </resources>

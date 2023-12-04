@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.reptimate.iot_teamnova.Retrofit.GetResult
 import com.reptimate.iot_teamnova.Scheduling.ScheduleActivity
@@ -35,6 +36,18 @@ class AccountFragment : Fragment() {
 //            val i = Intent(activity, CageActivity::class.java)
 //            startActivity(i)
 //        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+
+            loadUserInfo()
+
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+
+        binding.scheduling.isEnabled = false
+        binding.board.isEnabled = false
+        binding.edit.isEnabled = false
+        binding.setting.isEnabled = false
 
         binding.scheduling.setOnClickListener {
             val i = Intent(activity, ScheduleActivity::class.java)
@@ -108,6 +121,11 @@ class AccountFragment : Fragment() {
                             } else {
                                 binding.profile.setImageResource(R.drawable.reptimate_logo)
                             }
+
+                            binding.scheduling.isEnabled = true
+                            binding.board.isEnabled = true
+                            binding.edit.isEnabled = true
+                            binding.setting.isEnabled = true
 
                             Log.d("body_log", getIdx)
                         } catch(e: JSONException){

@@ -215,6 +215,7 @@
                 android:hint="닉네임"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:maxLength="12"
                 />
         </LinearLayout>
 

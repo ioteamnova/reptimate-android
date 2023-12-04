@@ -119,8 +119,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="제목을 입력하세요"
+                    android:hint="제목을 입력하세요. (최대 12글자)"
                     android:textSize="15dp"
+                    android:maxLength="12"
                     />
             </LinearLayout>
 
@@ -131,9 +132,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#E8E8E8"
-                android:hint="내용을 입력하세요"
+                android:hint="내용을 입력하세요 (최대 200글자)"
                 android:textSize="16dp"
                 android:gravity="top"
+                android:maxLength="200"
                 />
 
         </LinearLayout>

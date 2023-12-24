@@ -65,7 +65,6 @@ class MqttManager(private val context: Context, private val brokerUrl: String, p
 
     private var callbackConnectResult = object : IMqttActionListener {
         override fun onSuccess(asyncActionToken: IMqttToken?) {
-            println("성공 $asyncActionToken")
             mqttClient.subscribe("30/KR_B1/setup/response/app", 1)
             mqttClient.subscribe("${MainApplication.prefs.getidx}/KR_B1/temphumid/setresponse/app", 1)
             mqttClient.subscribe("${MainApplication.prefs.getidx}/KR_B1/temphumid/getresponse/app", 1)
@@ -77,7 +76,6 @@ class MqttManager(private val context: Context, private val brokerUrl: String, p
         }
 
         override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-            println("실패 $exception")
             reconnect()
         }
     }
@@ -97,7 +95,6 @@ class MqttManager(private val context: Context, private val brokerUrl: String, p
         mqttClient.setCallback(object : MqttCallback {
             // 연결이 끊겼을 경우
             override fun connectionLost(p0: Throwable?) {
-                println("연결 끊어짐")
 //                mqttClient1 = MqttAndroidClient(applicationContext, brokerUrl, MqttClient.generateClientId())
 //                val mqttConnectOptions = MqttConnectOptions()
 //                mqttConnectOptions.socketFactory = mqttSSLAuth()
@@ -107,8 +104,7 @@ class MqttManager(private val context: Context, private val brokerUrl: String, p
 
             // 메세지가 도착했을 때
             override fun messageArrived(topic: String, mqttMessage: MqttMessage) {
-                println("topic $topic")
-                println(mqttMessage)
+
                 if(topic == "${MainApplication.prefs.getidx}/KR_B1/emergency/getresponse/app") {
                     val messageString = mqttMessage.toString() // Convert the payload to a string
                     val jsonObject = JSONObject(messageString) // Convert the string to a JSONObject
@@ -116,7 +112,6 @@ class MqttManager(private val context: Context, private val brokerUrl: String, p
                     val boardIdx = jsonObject.getString("boardIdx")
                     val module = jsonObject.getString("module")
                     val limit = jsonObject.getString("limit")
-                    println("$cageName/$boardIdx/$module/$limit")
                     if(limit == "MAX_TEMP") {
                         val title = "$cageName 케이지의 온도 센서$module 에서 문제 발생!!"
                         val message = "온도가 너무 높습니다. 케이지 상태를 확인해주세요."
@@ -150,7 +145,6 @@ class MqttManager(private val context: Context, private val brokerUrl: String, p
 
             // 메시지 전송이 성공했을 때
             override fun deliveryComplete(p0: IMqttDeliveryToken?) {
-                println("메세지 전송 성공")
             }
         })
     }

@@ -166,19 +166,13 @@ class   ScheduleViewTab1  : Fragment(){ // 달력
             // This callback will be triggered whenever the calendar is scrolled to another month
             val year = date?.year ?: 0
             val month = date?.month ?: 0
-            println(year)
-            println(month + 1)
+
 
             val selectedYear = year
             val selectedMonth = month + 1
 
             val getList = String.format("%04d-%02d-%02d", selectedYear, selectedMonth, 1)
-            println(getList)
 
-            println(selectedYear)
-            println(currentYear)
-            println(selectedMonth)
-            println(currentMonth)
             if (selectedYear != currentYear || selectedMonth != currentMonth) {
                 // Month changed, do something
                 currentMonth = selectedMonth

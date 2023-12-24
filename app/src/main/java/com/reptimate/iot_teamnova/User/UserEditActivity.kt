@@ -509,6 +509,14 @@ class UserEditActivity : AppCompatActivity() {
                         }
                     }
 
+                    binding.passwordCancelBtn.setOnClickListener {
+                        binding.passwordBtn.visibility = View.VISIBLE
+                        binding.passwordLayout.visibility = View.GONE
+                        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+                        currentFocus?.clearFocus()
+                    }
+
                     binding.confirmBtn.setOnClickListener {//완료 버튼 클릭 시
                         val email = binding.emailEt.text.toString()
                         val name = binding.nameEt.text.toString()

@@ -36,7 +36,6 @@ object MQTTService1 {
                 token.actionCallback = object : IMqttActionListener {
                     override fun onSuccess(asyncActionToken: IMqttToken?) {
                         // 연결 성공 처리 작업
-                        println("연결 성공!")
                     }
 
                     override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {

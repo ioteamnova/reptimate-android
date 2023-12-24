@@ -86,12 +86,12 @@ class CageViewActivity : AppCompatActivity(), MqttService.MqttCallbackListener, 
         if(autoChkLight == "1") {
             autoLightUtctimeOn = getLocalDate(autoLightUtctimeOn)
             autoLightUtctimeOff = getLocalDate(autoLightUtctimeOff)
-            binding.uvbOnTime.text = autoLightUtctimeOn
-            binding.uvbOffTime.text = autoLightUtctimeOff
+//            binding.uvbOnTime.text = autoLightUtctimeOn
+//            binding.uvbOffTime.text = autoLightUtctimeOff
         }
         if(autoChkLight == "0") {
-            binding.uvbOnTime.text = ""
-            binding.uvbOffTime.text = ""
+//            binding.uvbOnTime.text = ""
+//            binding.uvbOffTime.text = ""
         }
 
         binding.cageName.text = cageName
@@ -113,6 +113,10 @@ class CageViewActivity : AppCompatActivity(), MqttService.MqttCallbackListener, 
         if(currentHeatingLight == "0") {
             binding.heatingLamp.text = "OFF"
         }
+
+        binding.UVB.text = "ON"
+
+        binding.heatingLamp.text = "ON"
 
         binding.temperatureSetting.setOnClickListener {
             val intent = Intent(applicationContext, EditTempDialog::class.java)
@@ -235,8 +239,7 @@ class CageViewActivity : AppCompatActivity(), MqttService.MqttCallbackListener, 
     }
 
     override fun onMessageReceived(topic: String, message: String) {
-        println("topic $topic")
-        println(message)
+
         if(topic == "30/KR_B1/temphumid/getresponse/app") {
             val messageString = message.toString() // Convert the payload to a string
             val jsonObject = JSONObject(messageString) // Convert the string to a JSONObject
@@ -244,10 +247,7 @@ class CageViewActivity : AppCompatActivity(), MqttService.MqttCallbackListener, 
             val currentHumid = jsonObject.getString("currentHumid")
             val currentTemp2 = jsonObject.getString("currentTemp2")
             val currentHumid2 = jsonObject.getString("currentHumid2")
-            println(currentTemp)
-            println(currentHumid)
-            println(currentTemp2)
-            println(currentHumid2)
+
             runOnUiThread {
                 binding.temperature1.text = currentTemp + "º"
                 binding.temperature2.text = currentTemp2 + "º"
@@ -258,8 +258,7 @@ class CageViewActivity : AppCompatActivity(), MqttService.MqttCallbackListener, 
     }
 
     override fun onMqttMessageReceived(topic: String, message: MqttMessage) {
-        println("topic $topic")
-        println(message)
+
         if(topic == "30/KR_B1/temphumid/getresponse/app") {
             val messageString = message.toString() // Convert the payload to a string
             val jsonObject = JSONObject(messageString) // Convert the string to a JSONObject
@@ -267,10 +266,7 @@ class CageViewActivity : AppCompatActivity(), MqttService.MqttCallbackListener, 
             val currentHumid = jsonObject.getString("currentHumid")
             val currentTemp2 = jsonObject.getString("currentTemp2")
             val currentHumid2 = jsonObject.getString("currentHumid2")
-            println(currentTemp)
-            println(currentHumid)
-            println(currentTemp2)
-            println(currentHumid2)
+
             runOnUiThread {
                 binding.temperature1.text = currentTemp + "º"
                 binding.temperature2.text = currentTemp2 + "º"
@@ -295,7 +291,6 @@ class CageViewActivity : AppCompatActivity(), MqttService.MqttCallbackListener, 
             e.printStackTrace()
             throw Exception(e)
         }
-        println("협정시: $utcTime")
         return utcTime
     }
 

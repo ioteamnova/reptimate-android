@@ -19,14 +19,13 @@
 
             <ImageView
                 android:id="@+id/back_btn"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/back_btn"
-                android:layout_gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="7dp"
+                android:src="@drawable/back_btn"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                />
+                android:foreground="?android:attr/selectableItemBackground"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -68,8 +67,8 @@
 
                 <ImageButton
                     android:id="@+id/photo_btn"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:background="@drawable/add_photo"
@@ -82,7 +81,7 @@
                     android:orientation="horizontal"
                     android:id="@+id/diary_imageView_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="70dp"
                     />
 
             </LinearLayout>

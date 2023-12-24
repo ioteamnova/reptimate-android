@@ -269,7 +269,6 @@ class CageWriteActivity : AppCompatActivity(), MqttService.MqttCallbackListener,
                     "{\"userIdx\":\"${MainApplication.prefs.getidx}\", \"boardTempname\":\"KR_B1\", \"cageName\":\"${binding.name.text.toString()}\", \"autoChkLight\":\"$uvb_ok\", \"autoChkTemp\":\"$tem_ok\", \"autoChkHumid\":\"$hum_ok\", \"maxTemp\":\"${binding.temperatureMax.text.toString()}\", \"minTemp\":\"${binding.temperatureMin.text.toString()}\", \"maxHumid\":\"${binding.humidityMax.text.toString()}\", \"minHumid\":\"${binding.humidityMin.text.toString()}\", \"usage\":\"사육장\", \"autoLightUtctimeOn\":\"${Local_To_UTC(binding.uvbOn.text.toString())}\", \"autoLightUtctimeOff\":\"${Local_To_UTC(binding.uvbOff.text.toString())}\"}"
 //                    "{\"userIdx\":\"${MainApplication.prefs.getidx}\", \"boardTempname\":\"KR_B1\", \"cageName\":\"${binding.name.text.toString()}\", \"maxTemp\":\"${binding.temperatureMax.text.toString()}\", \"minTemp\":\"${binding.temperatureMin.text.toString()}\", \"maxHumid\":\"${binding.humidityMax.text.toString()}\", \"minHumid\":\"${binding.humidityMin.text.toString()}\"}"
 
-                println(message)
                 mqttServiceConnection.getService()?.mqttManager?.publish("setup/request/nest", message)
 //                mqttClient1.publish("temphumid/setrequest/nest", MqttMessage(message.toByteArray()))
                 finish()
@@ -293,7 +292,6 @@ class CageWriteActivity : AppCompatActivity(), MqttService.MqttCallbackListener,
             e.printStackTrace()
             throw Exception(e)
         }
-        println("협정시: $utcTime")
         return utcTime
     }
 
@@ -320,15 +318,11 @@ class CageWriteActivity : AppCompatActivity(), MqttService.MqttCallbackListener,
 
     override fun onMessageReceived(topic: String, message: String) {
         // 메시지 도착 시 UI 업데이트 수행
-        println("topic $topic")
-        println(message)
-        println("케이지 등록 페이지")
+
     }
 
     override fun onMqttMessageReceived(topic: String, message: MqttMessage) {
         // 메시지 도착 시 UI 업데이트 수행
-        println("topic $topic")
-        println(message)
-        println("케이지 등록 페이지")
+
     }
 }

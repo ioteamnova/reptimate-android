@@ -16,6 +16,13 @@
         android:title="경매"
         />
     <item
+        android:id="@+id/ai"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/ai"
+        android:title="AI"
+        />
+    <item
         android:id="@+id/diary"
         app:showAsAction="ifRoom"
         android:icon="@drawable/diary"

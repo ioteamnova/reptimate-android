@@ -2,7 +2,10 @@ package com.reptimate.iot_teamnova.Diary
 
 import APIS
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,10 +14,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.reptimate.iot_teamnova.PreferenceUtil
+import com.reptimate.iot_teamnova.ProgressDialog
 import com.reptimate.iot_teamnova.R
 import com.reptimate.iot_teamnova.Retrofit.GetResult
 import com.reptimate.iot_teamnova.databinding.FragDiaryBinding
@@ -37,6 +42,7 @@ class DiaryFragment : Fragment() {
     private var _binding: FragDiaryBinding? = null
     private val binding get() = _binding!!
     private val api = APIS.create()
+    private lateinit var customProgressDialog: ProgressDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +66,23 @@ class DiaryFragment : Fragment() {
             requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+
+            currentPage = 1
+
+            itemList = mutableListOf<PetItem>() as ArrayList<PetItem>
+
+            petAdapter = PetAdapter(binding.root.context, itemList)
+            binding.petRv.setHasFixedSize(true)
+            binding.petRv.adapter = petAdapter
+
+            binding.petRv.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
+
+            loadItems(currentPage, this.requireContext())
+
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+
         // Fragment 레이아웃 뷰 반환
         return binding.root
     }
@@ -77,10 +100,16 @@ class DiaryFragment : Fragment() {
 
         binding.petRv.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
 
-        loadItems(currentPage)
+        loadItems(currentPage, this.requireContext())
     }
 
-    fun loadItems(page : Int) {
+    fun loadItems(page : Int, context: Context) {
+        customProgressDialog = ProgressDialog(this.requireActivity())
+
+        customProgressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        customProgressDialog.show()
+
         api.get_pet_list(page).enqueue(object : Callback<GetResult> {
             override fun onResponse(call: Call<GetResult>, response: Response<GetResult>) {
                 Log.d("log",response.toString())
@@ -98,6 +127,8 @@ class DiaryFragment : Fragment() {
                             existsNextPage = jsonObject?.get("existsNextPage").toString().replace("\"","") // 다음 페이지 존재 여부 true/false
                             val items = jsonObject?.get("items").toString().replace("^\"|\"$".toRegex(),"") // 펫 목록 배열
                             Log.d("itemList : ", items.toString())
+
+                            customProgressDialog.dismiss()
 
                             binding.petRv.apply {
                                 addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -198,20 +229,41 @@ class DiaryFragment : Fragment() {
 
                         } catch(e: JSONException){
                             e.printStackTrace()
+                            customProgressDialog.dismiss()
+
+                            val builder = AlertDialog.Builder(context)
+                            builder.setTitle("오류")
+                                .setMessage("서버와의 오류가 발생하였습니다.\n인터넷 연결을 확인해주세요.")
+                                .setPositiveButton("확인",
+                                    DialogInterface.OnClickListener { _, _ ->
+                                    })
+                            // 다이얼로그를 띄워주기
+                            builder.show()
                         }
 
                     }
                     else {
                         // Handle the case where response.body() is null
                         Log.d("토큰 결과 : ", "서버와의 오류가 발생하였습니다.")
+                        customProgressDialog.dismiss()
+
+                        val builder = AlertDialog.Builder(context)
+                        builder.setTitle("오류")
+                            .setMessage("서버와의 오류가 발생하였습니다.\n인터넷 연결을 확인해주세요.")
+                            .setPositiveButton("확인",
+                                DialogInterface.OnClickListener { _, _ ->
+                                })
+                        // 다이얼로그를 띄워주기
+                        builder.show()
                     }
                 }
                 else if (response.code() == 401) {
+                    customProgressDialog.dismiss()
                     Log.d("토큰 결과 : ", "401에러. 토큰 재발급 시도.")
                     PreferenceUtil(binding.root.context).checkToken { success ->
                         if (success) {
                             currentPage = 1
-                            loadItems(currentPage)
+                            loadItems(currentPage, context)
                         } else {
                             // Handle the case where token check failed
                             Log.d("토큰 결과 : ", "끝 너 멈춰.")
@@ -219,16 +271,29 @@ class DiaryFragment : Fragment() {
                     }
                 }
                 else if (response.code() == 404) {
+                    customProgressDialog.dismiss()
                     Log.d("토큰 결과 : ", "404에러. 토큰 재발급 시도.")
                     PreferenceUtil(binding.root.context).checkToken { success ->
                         if (success) {
                             currentPage = 1
-                            loadItems(currentPage)
+                            loadItems(currentPage, context)
                         } else {
                             // Handle the case where token check failed
                             Log.d("토큰 결과 : ", "끝 너 멈춰.")
                         }
                     }
+                } else {
+                    Log.d("토큰 결과 : ", "서버와의 오류가 발생하였습니다.")
+                    customProgressDialog.dismiss()
+
+                    val builder = AlertDialog.Builder(context)
+                    builder.setTitle("오류")
+                        .setMessage("서버와의 오류가 발생하였습니다.\n인터넷 연결을 확인해주세요.")
+                        .setPositiveButton("확인",
+                            DialogInterface.OnClickListener { _, _ ->
+                            })
+                    // 다이얼로그를 띄워주기
+                    builder.show()
                 }
             }
 
@@ -236,6 +301,17 @@ class DiaryFragment : Fragment() {
                 // 실패
                 Log.d("log",t.message.toString())
                 Log.d("log","fail")
+
+                customProgressDialog.dismiss()
+
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("오류")
+                    .setMessage("서버와의 오류가 발생하였습니다.\n인터넷 연결을 확인해주세요.")
+                    .setPositiveButton("확인",
+                        DialogInterface.OnClickListener { _, _ ->
+                        })
+                // 다이얼로그를 띄워주기
+                builder.show()
             }
         })
     }

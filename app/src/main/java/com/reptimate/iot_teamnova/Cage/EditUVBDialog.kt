@@ -116,14 +116,12 @@ class EditUVBDialog : Activity(), MqttService.MqttCallbackListener, MqttManager.
                 val message =
                     "{\"userIdx\":\"${MainApplication.prefs.getidx}\", \"boardTempname\":\"KR_B1\", \"autoChkLight\":\"${uvb_ok}\", \"autoLightUtctimeOn\":\"${Local_To_UTC(binding.uvbOn.text.toString())}\", \"autoLightUtctimeOff\":\"${Local_To_UTC(binding.uvbOff.text.toString())}\"}"
 
-                println(message)
                 mqttServiceConnection.getService()?.mqttManager?.publish("temphumid/setrequest/nest", message)
             }
             if(uvb_ok == "0"){
                 val message =
                     "{\"userIdx\":\"${MainApplication.prefs.getidx}\", \"boardTempname\":\"KR_B1\", \"autoChkLight\":\"${uvb_ok}\", \"autoLightUtctimeOn\":\"0\", \"autoLightUtctimeOff\":\"0\"}"
 
-                println(message)
                 mqttServiceConnection.getService()?.mqttManager?.publish("temphumid/setrequest/nest", message)
             }
             Toast.makeText(applicationContext, "UVB 램프 세팅이 변경되었습니다.", Toast.LENGTH_SHORT).show()
@@ -142,13 +140,11 @@ class EditUVBDialog : Activity(), MqttService.MqttCallbackListener, MqttManager.
     }
 
     override fun onMessageReceived(topic: String, message: String) {
-        println("topic $topic")
-        println(message)
+
     }
 
     override fun onMqttMessageReceived(topic: String, message: MqttMessage) {
-        println("topic $topic")
-        println(message)
+
     }
 
     @Throws(Exception::class)

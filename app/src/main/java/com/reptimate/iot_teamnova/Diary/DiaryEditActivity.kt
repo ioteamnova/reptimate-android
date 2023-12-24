@@ -3,6 +3,7 @@ package com.reptimate.iot_teamnova.Diary
 import APIS
 import APIS.Companion.createBaseService
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,12 +14,16 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -30,6 +35,7 @@ import com.reptimate.iot_teamnova.R
 import com.reptimate.iot_teamnova.Retrofit.DiaryWriteModel
 import com.reptimate.iot_teamnova.Retrofit.GetResult
 import com.reptimate.iot_teamnova.Retrofit.PostResult
+import com.reptimate.iot_teamnova.customAlbum.CustomAlbumActivity
 import com.reptimate.iot_teamnova.databinding.FragDiaryDiaryWriteBinding
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -64,6 +70,84 @@ class DiaryEditActivity  : AppCompatActivity(), DiaryWriteImageAdapter.OnItemCli
 
     private val binding by lazy { FragDiaryDiaryWriteBinding.inflate(layoutInflater) }
     private val api = APIS.create()
+
+    private val activityForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val getData: Intent? = result.data
+                val data: ArrayList<String>? = getData?.getStringArrayListExtra("data")
+                Log.v("main onActivityResult", "onActivityResult 호출")
+                if (result.resultCode == RESULT_OK) {
+                    Log.v("resultCode == RESULT_OK", "resultCode == RESULT_OK")
+                    Log.d("image data", data.toString())
+                        Log.v("Pick From Gallery", "requestCode == Pick From Gallery")
+
+                        if (data == null) {   // 어떤 이미지도 선택하지 않은 경우
+                            Toast.makeText(applicationContext, "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show()
+                        } else {   // 이미지를 하나라도 선택한 경우
+                            if (data.size == 1) {     // 이미지를 하나만 선택한 경우
+                                if (listSize == 5) {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "이미지는 최대 5장까지만 첨부 가능합니다.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                } else {
+                                    Log.e("single choice: ", data.toString())
+                                    var imageUri = Uri.parse(data[0])
+                                    val file = File(absolutelyPath(imageUri, this@DiaryEditActivity))
+                                    uriList.add(imageUri!!)
+                                    fileList.add(file)
+                                    photoUri = imageUri
+
+                                }
+                            } else {      // 이미지를 여러장 선택한 경우
+                                Log.e("clipData", data.size.toString())
+                                if (data.size > 5 - listSize) {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "이미지는 최대 5장까지만 첨부 가능합니다.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                } else if (data.size > 5) {   // 선택한 이미지가 6장 이상인 경우
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "이미지는 최대 5장까지만 선택 가능합니다.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                } else {   // 선택한 이미지가 1장 이상 5장 이하인 경우
+                                    Log.e("TAG", "multiple choice")
+
+                                    for (i in 0 until data.size) {
+                                        var imageUri = Uri.parse(data[i]) // 선택한 이미지들의 uri를 가져온다.
+                                        val file = File(absolutelyPath(imageUri, this@DiaryEditActivity))
+                                        try {
+                                            uriList.add(imageUri!!)
+                                            fileList.add(file)
+                                            photoUri = imageUri
+                                        } catch (e: Exception) {
+                                            Log.e("TAG", "File select error", e)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        listSize = uriList.size
+                        binding.imagesCount.text = "$listSize/5"
+
+                        itemTouchHelper.attachToRecyclerView(binding.diaryImageViewRv)
+
+                        adapter.notifyDataSetChanged()
+
+                        binding.diaryImageViewRv.adapter = adapter
+                        binding.diaryImageViewRv.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+
+
+                }
+
+            }
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -154,26 +238,34 @@ class DiaryEditActivity  : AppCompatActivity(), DiaryWriteImageAdapter.OnItemCli
                     getImagePath = ""
 
                     binding.photoBtn.setOnClickListener {
-                        //사진 관련 권한 허용
-                        if (checkSelfPermission(Manifest.permission.CAMERA) ==
-                            PackageManager.PERMISSION_GRANTED &&
-                            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                            PackageManager.PERMISSION_GRANTED
-                        ) else {
-                            ActivityCompat.requestPermissions(
-                                this@DiaryEditActivity, arrayOf<String>(
-                                    Manifest.permission.CAMERA,
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                                ), 0
-                            )
+                        when {
+                            ContextCompat.checkSelfPermission(
+                                this@DiaryEditActivity,
+                                android.Manifest.permission.READ_EXTERNAL_STORAGE
+                            ) == PackageManager.PERMISSION_GRANTED -> {
+                                //스토리지 읽기 권한이 허용이면 커스텀 앨범 띄워주기
+                                //권한 있을 경우 : PERMISSION_GRANTED
+                                //권한 없을 경우 : PERMISSION_DENIED
+                                val startCustomAlbum = Intent(this@DiaryEditActivity, CustomAlbumActivity::class.java)
+                                activityForResult.launch(startCustomAlbum)
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                            }
+
+                            shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) -> {
+                                //권한을 명시적으로 거부한 경우 : ture
+                                //다시 묻지 않음을 선택한 경우 : false
+                                //다이얼로그를 띄워 권한 팝업을 해야하는 이유 및 권한팝업을 허용하여야 접근 가능하다는 사실을 알려줌
+                                showPermissionAlertDialog()
+                            }
+
+                            else -> {
+                                //권한 요청
+                                requestPermissions(
+                                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                                    0
+                                )
+                            }
                         }
-                        // 사진 앨범 선택
-                        val intent1 = Intent(Intent.ACTION_PICK)
-                        intent1.type = MediaStore.Images.Media.CONTENT_TYPE
-                        intent1.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                        intent1.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                        startActivityForResult(intent1, Gallery)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     }
 
                     binding.confirmBtn.setOnClickListener {//완료 버튼 클릭 시
@@ -256,6 +348,58 @@ class DiaryEditActivity  : AppCompatActivity(), DiaryWriteImageAdapter.OnItemCli
         }
     })
 }
+
+    private fun showPermissionAlertDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("권한 승인이 필요합니다.")
+            .setMessage("사진을 선택 하시려면 권한이 필요합니다.")
+            .setPositiveButton("허용하기") { _, _ ->
+                requestPermissions(
+                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                    0
+                )
+            }
+            .setNegativeButton("취소하기") { _, _ -> }
+            .create()
+            .show()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            0 -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //권한 허용클릭
+                    //TODO()앨범으로 이동시키기!
+                } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    //권한 처음으로 거절 했을 경우
+                    //한번더 권한 요청
+                    showPermissionAlertDialog()
+                } else {
+                    //권한 두번째로 거절 한 경우 (다시 묻지 않음)
+                    //설정 -> 권한으로 이동하는 다이얼로그
+                    goSettingActivityAlertDialog()
+                }
+            }
+        }
+    }
+    private fun goSettingActivityAlertDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("권한 승인이 필요합니다.")
+            .setMessage("앨범에 접근 하기 위한 권한이 필요합니다.\n권한 -> 저장공간 -> 허용")
+            .setPositiveButton("허용하러 가기") { _, _ ->
+                val goSettingPermission = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                goSettingPermission.data = Uri.parse("package:$packageName")
+                startActivity(goSettingPermission)
+            }
+            .setNegativeButton("취소") { _, _ -> }
+            .create()
+            .show()
+    }
 
     // 절대경로 변환
     fun absolutelyPath(path: Uri?, context : Context): String {
@@ -346,13 +490,6 @@ class DiaryEditActivity  : AppCompatActivity(), DiaryWriteImageAdapter.OnItemCli
 
                 binding.diaryImageViewRv.adapter = adapter
                 binding.diaryImageViewRv.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
-
-//                adapter.setOnItemClickListener(object : DiaryWriteImageAdapter.OnItemClickListener {
-//                    override fun onItemClick(v: View?, position: Int) {
-//                        listSize = uriList.size - 1
-//                        binding.imagesCount.text = "$listSize/5 장"
-//                    }
-//                })
 
             }
         }

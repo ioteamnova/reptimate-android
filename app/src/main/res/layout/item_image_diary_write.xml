@@ -6,8 +6,8 @@
     <!-- The following View represent the content. Note the margin -->
     <ImageView
         android:id="@+id/image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:scaleType="center"
         android:layout_marginHorizontal="5dp"
         android:layout_marginTop="5dp"/>

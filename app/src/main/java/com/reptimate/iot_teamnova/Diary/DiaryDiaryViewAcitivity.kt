@@ -3,6 +3,8 @@ package com.reptimate.iot_teamnova.Diary
 import APIS
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.reptimate.iot_teamnova.PreferenceUtil
+import com.reptimate.iot_teamnova.ProgressDialog
 import com.reptimate.iot_teamnova.R
 import com.reptimate.iot_teamnova.Retrofit.GetResult
 import com.reptimate.iot_teamnova.Retrofit.GetUserResult
@@ -30,6 +33,7 @@ class DiaryDiaryViewAcitivity : AppCompatActivity() {
     private val binding by lazy { FragDiaryDiaryViewBinding.inflate(layoutInflater) }
     private val api = APIS.create()
     var imgPosition = 0
+    private lateinit var customProgressDialog: ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -111,6 +115,12 @@ class DiaryDiaryViewAcitivity : AppCompatActivity() {
     }
 
     fun loadContent(getPetIdx : String?, getDiaryIdx : String?) {
+        customProgressDialog = ProgressDialog(this)
+
+        customProgressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        customProgressDialog.show()
+
         imageList = ArrayList<String>()
 
         api.get_diary_view(getPetIdx, getDiaryIdx).enqueue(object : Callback<GetResult> {
@@ -129,6 +139,7 @@ class DiaryDiaryViewAcitivity : AppCompatActivity() {
                             var getContent =jsonObject?.get("content").toString().replace("\"", "") // 내용
                             var getCreatedAt = jsonObject?.get("createdAt").toString().replace("\"","").split("T")
                             var imagePaths = jsonObject?.get("images").toString().replace("^\"|\"$".toRegex(), "") // 펫 목록 배열
+                            customProgressDialog.dismiss()
 
                             binding.title.setText(getTitle)
                             binding.date.setText(getCreatedAt[0])

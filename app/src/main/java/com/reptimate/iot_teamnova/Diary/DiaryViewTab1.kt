@@ -65,6 +65,31 @@ class DiaryViewTab1 : Fragment(){
             requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+
+            currentPage = 1
+
+            val getIdx = arguments?.getString("idx")
+
+            loadWeek(getIdx)
+
+            binding.weekBtn.setOnClickListener {
+                loadWeek(getIdx)
+            }
+
+            binding.monthBtn.setOnClickListener {
+                loadMonth(getIdx)
+            }
+
+            binding.yearBtn.setOnClickListener {
+                loadYear(getIdx)
+            }
+
+            loadItems(getIdx)
+
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+
         // Fragment 레이아웃 뷰 반환
         return binding.root
     }

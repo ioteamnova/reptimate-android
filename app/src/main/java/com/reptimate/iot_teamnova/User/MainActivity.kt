@@ -4,16 +4,14 @@ import APIS
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.reptimate.iot_teamnova.HomeActivity
-import com.reptimate.iot_teamnova.MainApplication
-import com.reptimate.iot_teamnova.PreferenceUtil
-import com.reptimate.iot_teamnova.R
 import com.reptimate.iot_teamnova.Retrofit.GoogleLoginModel
 import com.reptimate.iot_teamnova.Retrofit.KakaoLoginModel
 import com.reptimate.iot_teamnova.Retrofit.LoginModel
@@ -25,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import com.reptimate.iot_teamnova.*
 import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val api = APIS.create()
+    private lateinit var customProgressDialog: ProgressDialog
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +77,12 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.loginBtn.setOnClickListener{
+            customProgressDialog = ProgressDialog(this)
+
+            customProgressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            customProgressDialog.show()
+
             binding.loginBtn.isEnabled = false
             binding.kakaoLogin.isEnabled = false
             binding.googleLogin.isEnabled = false
@@ -98,6 +104,7 @@ class MainActivity : AppCompatActivity() {
                                 val refreshToken = jsonObject?.get("refreshToken").toString().replace("\"","")
                                 val nickname = jsonObject?.get("nickname").toString().replace("\"","")
                                 val profilePath = jsonObject?.get("profilePath").toString().replace("\"","")
+                                customProgressDialog.dismiss()
 
                                 MainApplication.prefs.setString("accessToken", accessToken)
                                 MainApplication.prefs.setString("idx", idx)
@@ -118,6 +125,7 @@ class MainActivity : AppCompatActivity() {
                             } catch(e: JSONException){
                                 e.printStackTrace()
                                 Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                                customProgressDialog.dismiss()
                                 binding.loginBtn.isEnabled = true
                                 binding.kakaoLogin.isEnabled = true
                                 binding.googleLogin.isEnabled = true
@@ -128,10 +136,17 @@ class MainActivity : AppCompatActivity() {
                                 "아이디 혹은 비밀번호를 확인해주세요.",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            customProgressDialog.dismiss()
                             binding.loginBtn.isEnabled = true
                             binding.kakaoLogin.isEnabled = true
                             binding.googleLogin.isEnabled = true
                         }
+                    } else {
+                        Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        customProgressDialog.dismiss()
+                        binding.loginBtn.isEnabled = true
+                        binding.kakaoLogin.isEnabled = true
+                        binding.googleLogin.isEnabled = true
                     }
                 }
 
@@ -139,6 +154,11 @@ class MainActivity : AppCompatActivity() {
                     // 실패
                     Log.d("log",t.message.toString())
                     Log.d("log","fail")
+                    Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                    customProgressDialog.dismiss()
+                    binding.loginBtn.isEnabled = true
+                    binding.kakaoLogin.isEnabled = true
+                    binding.googleLogin.isEnabled = true
                 }
             })
         }
@@ -159,6 +179,12 @@ class MainActivity : AppCompatActivity() {
 
         // 로그인 버튼 클릭 리스너
         binding.kakaoLogin.setOnClickListener {
+            customProgressDialog = ProgressDialog(this)
+
+            customProgressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            customProgressDialog.show()
+
             binding.loginBtn.isEnabled = false
             binding.kakaoLogin.isEnabled = false
             binding.googleLogin.isEnabled = false
@@ -171,6 +197,7 @@ class MainActivity : AppCompatActivity() {
                         "카카오 로그인 오류.",
                         Toast.LENGTH_SHORT
                     ).show()
+                    customProgressDialog.dismiss()
                     binding.loginBtn.isEnabled = true
                     binding.kakaoLogin.isEnabled = true
                     binding.googleLogin.isEnabled = true
@@ -217,6 +244,7 @@ class MainActivity : AppCompatActivity() {
                                         "카카오 로그인 오류.",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    customProgressDialog.dismiss()
                                     binding.loginBtn.isEnabled = true
                                     binding.kakaoLogin.isEnabled = true
                                     binding.googleLogin.isEnabled = true
@@ -227,9 +255,7 @@ class MainActivity : AppCompatActivity() {
                                     "카카오 로그인 오류.",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                binding.loginBtn.isEnabled = true
-                                binding.kakaoLogin.isEnabled = true
-                                binding.googleLogin.isEnabled = true
+                                customProgressDialog.dismiss()
                                 binding.loginBtn.isEnabled = true
                                 binding.kakaoLogin.isEnabled = true
                                 binding.googleLogin.isEnabled = true
@@ -245,11 +271,22 @@ class MainActivity : AppCompatActivity() {
                                 "카카오 로그인 오류.",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            customProgressDialog.dismiss()
                             binding.loginBtn.isEnabled = true
                             binding.kakaoLogin.isEnabled = true
                             binding.googleLogin.isEnabled = true
                         }
                     })
+                }else {
+                    Toast.makeText(
+                        applicationContext,
+                        "카카오 로그인 오류.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    customProgressDialog.dismiss()
+                    binding.loginBtn.isEnabled = true
+                    binding.kakaoLogin.isEnabled = true
+                    binding.googleLogin.isEnabled = true
                 }
             }
             UserApiClient.instance.run {
@@ -270,6 +307,12 @@ class MainActivity : AppCompatActivity() {
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
         binding.googleLogin.setOnClickListener {
+            customProgressDialog = ProgressDialog(this)
+
+            customProgressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            customProgressDialog.show()
+
             binding.loginBtn.isEnabled = false
             binding.kakaoLogin.isEnabled = false
             binding.googleLogin.isEnabled = false
@@ -310,6 +353,7 @@ class MainActivity : AppCompatActivity() {
                                     val refreshToken = jsonObject?.get("refreshToken").toString().replace("\"","")
                                     val nickname = jsonObject?.get("nickname").toString().replace("\"","")
                                     val profilePath = jsonObject?.get("profilePath").toString().replace("\"","")
+                                    customProgressDialog.dismiss()
 
                                     MainApplication.prefs.setString("accessToken", accessToken)
                                     MainApplication.prefs.setString("idx", idx)
@@ -333,6 +377,7 @@ class MainActivity : AppCompatActivity() {
                                         "구글 로그인 오류.",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    customProgressDialog.dismiss()
                                     binding.loginBtn.isEnabled = true
                                     binding.kakaoLogin.isEnabled = true
                                     binding.googleLogin.isEnabled = true
@@ -343,6 +388,7 @@ class MainActivity : AppCompatActivity() {
                                     "구글 로그인 오류.",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                customProgressDialog.dismiss()
                                 binding.loginBtn.isEnabled = true
                                 binding.kakaoLogin.isEnabled = true
                                 binding.googleLogin.isEnabled = true
@@ -358,6 +404,7 @@ class MainActivity : AppCompatActivity() {
                                 "구글 로그인 오류.",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            customProgressDialog.dismiss()
                             binding.loginBtn.isEnabled = true
                             binding.kakaoLogin.isEnabled = true
                             binding.googleLogin.isEnabled = true
@@ -371,6 +418,7 @@ class MainActivity : AppCompatActivity() {
                         "구글 로그인 오류.",
                         Toast.LENGTH_SHORT
                     ).show()
+                    customProgressDialog.dismiss()
                     binding.loginBtn.isEnabled = true
                     binding.kakaoLogin.isEnabled = true
                     binding.googleLogin.isEnabled = true
@@ -382,6 +430,7 @@ class MainActivity : AppCompatActivity() {
                 "구글 로그인 오류.",
                 Toast.LENGTH_SHORT
             ).show()
+            customProgressDialog.dismiss()
             binding.loginBtn.isEnabled = true
             binding.kakaoLogin.isEnabled = true
             binding.googleLogin.isEnabled = true

@@ -21,14 +21,13 @@
 
             <ImageView
                 android:id="@+id/back_btn"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/back_btn"
-                android:layout_gravity="center"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="7dp"
+                android:src="@drawable/back_btn"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                />
+                android:foreground="?android:attr/selectableItemBackground"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -102,7 +101,7 @@
                 android:textColor="#000"
                 android:textSize="15dp"
                 android:layout_marginLeft="20dp"
-                android:background="#E8E8E8"
+                android:background="@drawable/pet_item_background"
                 android:enabled="false"
                 android:maxLength="12"
                 />
@@ -167,7 +166,7 @@
                 android:textColor="#000"
                 android:textSize="15dp"
                 android:layout_marginLeft="20dp"
-                android:background="#E8E8E8"
+                android:background="@drawable/pet_item_background"
                 android:enabled="false"
                 />
             <TextView
@@ -267,8 +266,9 @@
                 android:gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:padding="12dp"
-                android:text="변경하기"
+                android:layout_marginBottom="10dp"
+                android:padding="8dp"
+                android:text="비밀번호 변경"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:textColor="#FFF"
@@ -280,14 +280,13 @@
         </LinearLayout>
 
         <TextView
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/social_validate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="소셜 로그인 유저는 이메일 및 비밀번호를 변경할 수 없습니다."
-            android:textSize="14dp"
-            android:textColor="#FF1100"
-            android:textStyle="bold"
+            android:text="소셜 로그인 회원은 이메일과 비밀번호 변경이 불가능 합니다."
+            android:textSize="12dp"
+            android:textColor="#6D71E6"
             android:gravity="center"
             android:visibility="gone"
             />
@@ -311,7 +310,7 @@
                 android:inputType="textPassword"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="#E8E8E8"
+                android:background="@drawable/pet_item_background"
                 />
 
             <EditText
@@ -326,7 +325,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="#E8E8E8"
+                android:background="@drawable/pet_item_background"
                 />
             <TextView
                 android:visibility="gone"
@@ -351,7 +350,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="#E8E8E8"
+                android:background="@drawable/pet_item_background"
                 />
             <TextView
                 android:visibility="gone"
@@ -372,8 +371,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:padding="12dp"
-                android:text="변경 확인"
+                android:padding="8dp"
+                android:text="변경하기"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:textColor="#FFF"
@@ -382,6 +381,27 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:background="@drawable/button_background"
                 />
+
+            <TextView
+                android:id="@+id/password_cancel_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:padding="8dp"
+                android:text="취소하기"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="#6D71E6"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/button_background2"
+                />
+
         </LinearLayout>
 
     </LinearLayout>

@@ -17,7 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.reptimate.iot_teamnova.customAlbum.CustomAlbumActivity2
 
-class MyWebChromeClient2(private val fragment: AuctionFragment) : WebChromeClient() {
+class MyWebChromeClient4(private val fragment: AiFragment) : WebChromeClient() {
     private var mFilePathCallback: ValueCallback<Array<Uri>?>? = null
 
 //    override fun getDefaultVideoPoster() : Bitmap? {
@@ -37,9 +37,11 @@ class MyWebChromeClient2(private val fragment: AuctionFragment) : WebChromeClien
                         uri?.toString()?.let { Log.d("fad", it) }
                     }
                     mFilePathCallback?.onReceiveValue(uris.toTypedArray())
+                    println(uris.toTypedArray())
                 } else {
 //                            val result = getResultUri(Uri.parse(data[0]))
 //                            mFilePathCallback?.onReceiveValue(result?.let { arrayOf(it) })
+//                            println(result?.let { arrayOf(it) })
                 }
                 mFilePathCallback = null
             } else {
@@ -151,9 +153,11 @@ class MyWebChromeClient2(private val fragment: AuctionFragment) : WebChromeClien
                             uri?.toString()?.let { Log.d("fad", it) }
                         }
                         mFilePathCallback?.onReceiveValue(uris.toTypedArray())
+                        println(uris.toTypedArray())
                     } else {
                         val result = getResultUri(intent?.data)
                         mFilePathCallback?.onReceiveValue(result?.let { arrayOf(it) })
+                        println(result?.let { arrayOf(it) })
                     }
                     mFilePathCallback = null
                 }

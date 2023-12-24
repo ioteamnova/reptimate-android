@@ -82,7 +82,8 @@
         <activity android:name=".User.ChangePwActivity"/>
         <activity android:name=".User.SettingActivity"/>
         <activity android:name=".User.UserEditActivity"/>
-        <activity android:name=".HomeActivity"/>
+        <activity android:name=".HomeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name=".Diary.PetWriteActivity"/>
         <activity android:name=".Diary.PetEditActivity"/>
         <activity android:name=".Diary.PetDeleteDialog"
@@ -128,6 +129,8 @@
             android:exported="true"
             android:theme="@style/Theme.RtmpNew_streaming"
             />
+        <activity android:name=".customAlbum.CustomAlbumActivity"/>
+        <activity android:name=".customAlbum.CustomAlbumActivity2"/>
 
     </application>
 

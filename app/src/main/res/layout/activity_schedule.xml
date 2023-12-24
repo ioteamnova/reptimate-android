@@ -53,7 +53,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="일정"
+            android:text="반복"
             />
 
     </com.google.android.material.tabs.TabLayout>

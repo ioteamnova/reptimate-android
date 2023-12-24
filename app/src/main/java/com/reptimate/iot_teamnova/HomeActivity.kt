@@ -32,6 +32,11 @@ class HomeActivity: AppCompatActivity() {
                     val auctionFragment = AuctionFragment()
                     supportFragmentManager.beginTransaction().replace(R.id.fl_container, auctionFragment).commit()
                 }
+                R.id.ai -> {
+                    // 다른 프래그먼트 화면으로 이동하는 기능
+                    val aiFragment = AiFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.fl_container, aiFragment).commit()
+                }
                 R.id.diary -> {
                     val diaryFragment = DiaryFragment()
                     supportFragmentManager.beginTransaction().replace(R.id.fl_container, diaryFragment).commit()

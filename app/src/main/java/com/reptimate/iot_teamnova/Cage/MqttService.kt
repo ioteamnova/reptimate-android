@@ -44,9 +44,7 @@ class MqttService : Service() {
         mqttManager.setMqttCallbackListener(object : MqttManager.MqttCallbackListener {
             override fun onMqttMessageReceived(topic: String, message: MqttMessage) {
                 // 메세지 도착 시 동작할 코드
-                println("topic $topic")
-                println(message)
-                println("서비스에서 실행")
+
                 // 이 코드 아래에 필요한 작업을 추가하세요.
                 mqttCallbackListener?.onMqttMessageReceived(topic, message)
             }

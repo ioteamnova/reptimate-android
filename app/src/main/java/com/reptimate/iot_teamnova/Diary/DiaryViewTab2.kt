@@ -1,6 +1,8 @@
 package com.reptimate.iot_teamnova.Diary
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.reptimate.iot_teamnova.PreferenceUtil
+import com.reptimate.iot_teamnova.ProgressDialog
 import com.reptimate.iot_teamnova.R
 import com.reptimate.iot_teamnova.Retrofit.GetResult
 import com.reptimate.iot_teamnova.databinding.FragDiaryViewDiaryBinding
@@ -32,6 +35,7 @@ class DiaryViewTab2 : Fragment(){
     private var _binding: FragDiaryViewDiaryBinding? = null
     private val binding get() = _binding!!
     private val api = APIS.create()
+    private lateinit var customProgressDialog: ProgressDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +51,19 @@ class DiaryViewTab2 : Fragment(){
             intent.putExtra("idx", getIdx)
             startActivity(intent)
             requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+
+            currentPage = 1
+
+            itemList = mutableListOf<DiaryItem>() as ArrayList<DiaryItem>
+
+            val getIdx = arguments?.getString("idx")
+
+            loadItems(getIdx)
+
+            binding.swipeRefreshLayout.isRefreshing = false
         }
 
         // Fragment 레이아웃 뷰 반환
@@ -66,6 +83,11 @@ class DiaryViewTab2 : Fragment(){
     }
 
     fun loadItems(getIdx : String?) {
+        customProgressDialog = ProgressDialog(this.requireContext())
+
+        customProgressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        customProgressDialog.show()
         api.get_diary_list(getIdx,currentPage).enqueue(object : Callback<GetResult> {
             override fun onResponse(call: Call<GetResult>, response: Response<GetResult>) {
                 Log.d("log",response.toString())
@@ -83,6 +105,7 @@ class DiaryViewTab2 : Fragment(){
                             existsNextPage = jsonObject?.get("existsNextPage").toString().replace("\"","") // 다음 페이지 존재 여부 true/false
                             val items = jsonObject?.get("items").toString().replace("^\"|\"$".toRegex(),"") // 펫 목록 배열
                             Log.d("itemList : ", items.toString())
+                            customProgressDialog.dismiss()
 
                             binding.diaryRv.apply {
                                 addOnScrollListener(object : RecyclerView.OnScrollListener() {

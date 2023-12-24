@@ -70,9 +70,6 @@ class CageActivity : AppCompatActivity(), MqttService.MqttCallbackListener, Mqtt
     // MqttManagerCallback의 메서드 구현
     override fun onMessageReceived(topic: String, message: String) {
         // 메시지 도착 시 UI 업데이트 수행
-        println("topic $topic")
-        println(message)
-        println("리사이클러뷰 데이터 리세팅 매니저")
         if (topic == "30/KR_B1/temphumid/getresponse/app") {
             val messageString = message.toString() // Convert the payload to a string
             val jsonObject = JSONObject(messageString) // Convert the string to a JSONObject
@@ -80,10 +77,6 @@ class CageActivity : AppCompatActivity(), MqttService.MqttCallbackListener, Mqtt
             val currentHumid = jsonObject.getString("currentHumid")
             val currentTemp2 = jsonObject.getString("currentTemp2")
             val currentHumid2 = jsonObject.getString("currentHumid2")
-            println(currentTemp)
-            println(currentHumid)
-            println(currentTemp2)
-            println(currentHumid2)
             runOnUiThread {
                 var itemToUpdate: CageItem? = null
                 for (item in itemList) {
@@ -126,9 +119,7 @@ class CageActivity : AppCompatActivity(), MqttService.MqttCallbackListener, Mqtt
 
     // MqttCallbackListener의 콜백 메서드
     override fun onMqttMessageReceived(topic: String, message: MqttMessage) {
-        println("topic $topic")
-        println(message)
-        println("리사이클러뷰 데이터 리세팅 콜백")
+
         if (topic == "30/KR_B1/temphumid/getresponse/app") {
             val messageString = message.toString() // Convert the payload to a string
             val jsonObject = JSONObject(messageString) // Convert the string to a JSONObject
@@ -136,10 +127,6 @@ class CageActivity : AppCompatActivity(), MqttService.MqttCallbackListener, Mqtt
             val currentHumid = jsonObject.getString("currentHumid")
             val currentTemp2 = jsonObject.getString("currentTemp2")
             val currentHumid2 = jsonObject.getString("currentHumid2")
-            println(currentTemp)
-            println(currentHumid)
-            println(currentTemp2)
-            println(currentHumid2)
             runOnUiThread {
                 var itemToUpdate: CageItem? = null
                 for (item in itemList) {
@@ -182,99 +169,157 @@ class CageActivity : AppCompatActivity(), MqttService.MqttCallbackListener, Mqtt
 
         itemList = mutableListOf<CageItem>() as ArrayList<CageItem>
 
-        api.get_cage_list(currentPage).enqueue(object : Callback<GetResult> {
-            override fun onResponse(call: Call<GetResult>, response: Response<GetResult>) {
-                Log.d("log",response.toString())
-                Log.d("body_log", response.body().toString())
-                try {
-                    val jsonObject = response.body()?.result
-                    val pageSize = jsonObject?.get("pageSize").toString().replace("\"","") // 페이지 당 아이템 개수
-                    val totalCount = jsonObject?.get("totalCount").toString().replace("\"","") // 총 아이템 개수
-                    val totalPage = jsonObject?.get("totalPage").toString().replace("\"","") // 총 페이지
-                    existsNextPage = jsonObject?.get("existsNextPage").toString().replace("\"","") // 다음 페이지 존재 여부 true/false
-                    val items = jsonObject?.get("items").toString().replace("^\"|\"$".toRegex(),"") // 펫 목록 배열
-                    Log.d("itemList : ", items.toString())
+        itemList.add(CageItem("1", "무근이 집", "1", "ON", "ON",
+            "1", "1", "1", "13º", "15",
+            "18", "11", "70%", "67", "72",
+            "60", "autoLightUtctimeOn", "autoLightUtctimeOff"))
 
-//                    binding.cageRv.apply {
-//                        addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//                            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                                super.onScrolled(recyclerView, dx, dy)
-//
-//                                // 리사이클러뷰 가장 마지막 index
-//                                val lastPosition =
-//                                    (recyclerView.layoutManager as LinearLayoutManager?)?.findLastCompletelyVisibleItemPosition()
-//
-//                                // 받아온 리사이클러 뷰 카운트
-//                                val totalCount = recyclerView.adapter!!.itemCount
-//
-//                                // 스크롤을 맨 끝까지 했을 때
-//                                if (lastPosition == totalCount - 1) {
-//                                    if(existsNextPage == "true"){
-//                                        loadMoreItems()
-//                                    }
-//
-//                                }
-//                            }
-//                        })
-//                    }
+        itemList.add(CageItem("2", "마뱀이 집", "1", "ON", "OFF",
+            "0", "1", "0", "26º", "currentTemp2",
+            "maxTemp", "minTemp", "63%", "currentHumid2", "maxHumid",
+            "minHumid", "autoLightUtctimeOn", "autoLightUtctimeOff"))
 
-                    val array = JSONArray(items)
+        itemList.add(CageItem("3", "뱀뱀이 집", "1", "ON", "OFF",
+            "0", "1", "0", "19º", "currentTemp2",
+            "maxTemp", "minTemp", "55%", "currentHumid2", "maxHumid",
+            "minHumid", "autoLightUtctimeOn", "autoLightUtctimeOff"))
 
-                    //traversing through all the object
-                    for (i in 0 until array.length()) {
-                        val item = array.getJSONObject(i)
-                        val idx = item.getString("idx")
-                        val cageName = item.getString("cageName")
-                        val boardTempname = item.getString("boardTempname")
-                        val currentUvbLight = item.getString("currentUvbLight")
-                        val currentHeatingLight = item.getString("currentHeatingLight")
-                        val autoChkLight = item.getString("autoChkLight")
-                        val autoChkTemp = item.getString("autoChkTemp")
-                        val autoChkHumid = item.getString("autoChkHumid")
-                        val currentTemp = item.getString("currentTemp")
-                        val currentTemp2 = item.getString("currentTemp2")
-                        val maxTemp = item.getString("maxTemp")
-                        val minTemp = item.getString("minTemp")
-                        val currentHumid = item.getString("currentHumid")
-                        val currentHumid2 = item.getString("currentHumid2")
-                        val maxHumid = item.getString("maxHumid")
-                        val minHumid = item.getString("minHumid")
-                        val autoLightUtctimeOn = item.getString("autoLightUtctimeOn")
-                        val autoLightUtctimeOff = item.getString("autoLightUtctimeOff")
+        itemList.add(CageItem("4", "크레 집", "1", "OFF", "ON",
+            "1", "0", "0", "22º", "currentTemp2",
+            "maxTemp", "minTemp", "57%", "currentHumid2", "maxHumid",
+            "minHumid", "autoLightUtctimeOn", "autoLightUtctimeOff"))
 
-                        val cage = CageItem(idx, cageName, boardTempname, currentUvbLight, currentHeatingLight,
-                            autoChkLight, autoChkTemp, autoChkHumid, currentTemp, currentTemp2,
-                            maxTemp, minTemp, currentHumid, currentHumid2, maxHumid, minHumid, autoLightUtctimeOn, autoLightUtctimeOff)
+        itemList.add(CageItem("5", "레오 케이지", "1", "OFF", "ON",
+            "0", "0", "0", "20º", "currentTemp2",
+            "maxTemp", "minTemp", "54%", "currentHumid2", "maxHumid",
+            "minHumid", "autoLightUtctimeOn", "autoLightUtctimeOff"))
 
-                        itemList.add(cage)
-                    }
+        itemList.add(CageItem("6", "밤 전용 집", "1", "OFF", "ON",
+            "0", "0", "0", "29º", "currentTemp2",
+            "maxTemp", "minTemp", "77%", "currentHumid2", "maxHumid",
+            "minHumid", "autoLightUtctimeOn", "autoLightUtctimeOff"))
 
-                    cageAdapter = CageAdapter(binding.root.context, itemList)
+        itemList.add(CageItem("7", "크레 집", "1", "OFF", "ON",
+            "1", "0", "0", "22º", "currentTemp2",
+            "maxTemp", "minTemp", "57%", "currentHumid2", "maxHumid",
+            "minHumid", "autoLightUtctimeOn", "autoLightUtctimeOff"))
+
+        itemList.add(CageItem("8", "크레 집", "1", "OFF", "ON",
+            "1", "0", "0", "22º", "currentTemp2",
+            "maxTemp", "minTemp", "57%", "currentHumid2", "maxHumid",
+            "minHumid", "autoLightUtctimeOn", "autoLightUtctimeOff"))
+
+        cageAdapter = CageAdapter(binding.root.context, itemList)
 //                    val itemTouchHelper = ItemTouchHelper(SwipeController(petAdapter))
 //                    itemTouchHelper.attachToRecyclerView(binding.petRv)
-                    cageAdapter.notifyDataSetChanged()
+        cageAdapter.notifyDataSetChanged()
 
-                    binding.cageRv.adapter = cageAdapter
-                    binding.cageRv.layoutManager = GridLayoutManager(binding.root.context, 2)
+        binding.cageRv.adapter = cageAdapter
+        binding.cageRv.layoutManager = GridLayoutManager(binding.root.context, 2)
 
-                    if(itemList.isEmpty()) {
-                        binding.emptyTextView.visibility = View.VISIBLE
-                        binding.cageRv.visibility = View.GONE
-                    } else {
-                        binding.emptyTextView.visibility = View.GONE
-                        binding.cageRv.visibility = View.VISIBLE
-                    }
+        if(itemList.isEmpty()) {
+            binding.emptyTextView.visibility = View.VISIBLE
+            binding.cageRv.visibility = View.GONE
+        } else {
+            binding.emptyTextView.visibility = View.GONE
+            binding.cageRv.visibility = View.VISIBLE
+        }
 
-                } catch(e: JSONException){
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onFailure(call: Call<GetResult>, t: Throwable) {
-                // 실패
-                Log.d("log",t.message.toString())
-                Log.d("log","fail")
-            }
-        })
+//        api.get_cage_list(currentPage).enqueue(object : Callback<GetResult> {
+//            override fun onResponse(call: Call<GetResult>, response: Response<GetResult>) {
+//                Log.d("log",response.toString())
+//                Log.d("body_log", response.body().toString())
+//                try {
+//                    val jsonObject = response.body()?.result
+//                    val pageSize = jsonObject?.get("pageSize").toString().replace("\"","") // 페이지 당 아이템 개수
+//                    val totalCount = jsonObject?.get("totalCount").toString().replace("\"","") // 총 아이템 개수
+//                    val totalPage = jsonObject?.get("totalPage").toString().replace("\"","") // 총 페이지
+//                    existsNextPage = jsonObject?.get("existsNextPage").toString().replace("\"","") // 다음 페이지 존재 여부 true/false
+//                    val items = jsonObject?.get("items").toString().replace("^\"|\"$".toRegex(),"") // 펫 목록 배열
+//                    Log.d("itemList : ", items.toString())
+//
+////                    binding.cageRv.apply {
+////                        addOnScrollListener(object : RecyclerView.OnScrollListener() {
+////                            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+////                                super.onScrolled(recyclerView, dx, dy)
+////
+////                                // 리사이클러뷰 가장 마지막 index
+////                                val lastPosition =
+////                                    (recyclerView.layoutManager as LinearLayoutManager?)?.findLastCompletelyVisibleItemPosition()
+////
+////                                // 받아온 리사이클러 뷰 카운트
+////                                val totalCount = recyclerView.adapter!!.itemCount
+////
+////                                // 스크롤을 맨 끝까지 했을 때
+////                                if (lastPosition == totalCount - 1) {
+////                                    if(existsNextPage == "true"){
+////                                        loadMoreItems()
+////                                    }
+////
+////                                }
+////                            }
+////                        })
+////                    }
+//
+//                    val array = JSONArray(items)
+//
+//                    //traversing through all the object
+//                    for (i in 0 until array.length()) {
+//                        val item = array.getJSONObject(i)
+//                        val idx = item.getString("idx")
+//                        val cageName = item.getString("cageName")
+//                        val boardTempname = item.getString("boardTempname")
+//                        val currentUvbLight = item.getString("currentUvbLight")
+//                        val currentHeatingLight = item.getString("currentHeatingLight")
+//                        val autoChkLight = item.getString("autoChkLight")
+//                        val autoChkTemp = item.getString("autoChkTemp")
+//                        val autoChkHumid = item.getString("autoChkHumid")
+//                        val currentTemp = item.getString("currentTemp")
+//                        val currentTemp2 = item.getString("currentTemp2")
+//                        val maxTemp = item.getString("maxTemp")
+//                        val minTemp = item.getString("minTemp")
+//                        val currentHumid = item.getString("currentHumid")
+//                        val currentHumid2 = item.getString("currentHumid2")
+//                        val maxHumid = item.getString("maxHumid")
+//                        val minHumid = item.getString("minHumid")
+//                        val autoLightUtctimeOn = item.getString("autoLightUtctimeOn")
+//                        val autoLightUtctimeOff = item.getString("autoLightUtctimeOff")
+//
+//                        val cage = CageItem(idx, cageName, boardTempname, currentUvbLight, currentHeatingLight,
+//                            autoChkLight, autoChkTemp, autoChkHumid, currentTemp, currentTemp2,
+//                            maxTemp, minTemp, currentHumid, currentHumid2, maxHumid, minHumid, autoLightUtctimeOn, autoLightUtctimeOff)
+//
+//                        itemList.add(cage)
+//                    }
+//
+//
+//
+//                    cageAdapter = CageAdapter(binding.root.context, itemList)
+////                    val itemTouchHelper = ItemTouchHelper(SwipeController(petAdapter))
+////                    itemTouchHelper.attachToRecyclerView(binding.petRv)
+//                    cageAdapter.notifyDataSetChanged()
+//
+//                    binding.cageRv.adapter = cageAdapter
+//                    binding.cageRv.layoutManager = GridLayoutManager(binding.root.context, 2)
+//
+//                    if(itemList.isEmpty()) {
+//                        binding.emptyTextView.visibility = View.VISIBLE
+//                        binding.cageRv.visibility = View.GONE
+//                    } else {
+//                        binding.emptyTextView.visibility = View.GONE
+//                        binding.cageRv.visibility = View.VISIBLE
+//                    }
+//
+//                } catch(e: JSONException){
+//                    e.printStackTrace()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<GetResult>, t: Throwable) {
+//                // 실패
+//                Log.d("log",t.message.toString())
+//                Log.d("log","fail")
+//            }
+//        })
     }
 }

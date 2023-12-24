@@ -1,6 +1,7 @@
 package com.reptimate.iot_teamnova
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -8,10 +9,12 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import android.view.*
 import android.webkit.ConsoleMessage
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.widget.FrameLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -24,6 +27,82 @@ class MyWebChromeClient3 (private val activity: BoardWebViewActivity) : WebChrom
 //    override fun getDefaultVideoPoster() : Bitmap? {
 //        return Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888)
 //    }
+
+    private var mCustomView: View? = null
+    private var mCustomViewCallback: CustomViewCallback? = null
+    private var mFullscreenContainer: FullscreenHolder? = null
+    private var mOriginalOrientation: Int = 0
+
+    override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            if (mCustomView != null) {
+                callback?.onCustomViewHidden()
+                return
+            }
+
+            mOriginalOrientation = activity.requestedOrientation
+            val decor = activity.window.decorView as FrameLayout
+            mFullscreenContainer = FullscreenHolder(activity)
+            mFullscreenContainer?.addView(view, COVER_SCREEN_PARAMS)
+            decor.addView(mFullscreenContainer, COVER_SCREEN_PARAMS)
+            mCustomView = view
+            setFullscreen(true)
+            mCustomViewCallback = callback
+        }
+
+        super.onShowCustomView(view, callback)
+    }
+
+    @Suppress("DEPRECATION")
+    override fun onShowCustomView(view: View?, requestedOrientation: Int, callback: CustomViewCallback?) {
+        onShowCustomView(view, callback)
+    }
+
+    override fun onHideCustomView() {
+        if (mCustomView == null) {
+            return
+        }
+
+        setFullscreen(false)
+        val decor = activity.window.decorView as FrameLayout
+        decor.removeView(mFullscreenContainer)
+        mFullscreenContainer = null
+        mCustomView = null
+        mCustomViewCallback?.onCustomViewHidden()
+        activity.requestedOrientation = mOriginalOrientation
+    }
+
+    private fun setFullscreen(enabled: Boolean) {
+        val win: Window = activity.window
+        val winParams: WindowManager.LayoutParams = win.attributes
+        val bits: Int = WindowManager.LayoutParams.FLAG_FULLSCREEN
+        if (enabled) {
+            winParams.flags = winParams.flags or bits
+        } else {
+            winParams.flags = winParams.flags and bits.inv()
+            if (mCustomView != null) {
+                mCustomView?.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+            }
+        }
+        win.attributes = winParams
+    }
+
+    private class FullscreenHolder(ctx: Context) : FrameLayout(ctx) {
+        init {
+            setBackgroundColor(ContextCompat.getColor(ctx, android.R.color.black))
+        }
+
+        override fun onTouchEvent(evt: MotionEvent?): Boolean {
+            return true
+        }
+    }
+
+    companion object {
+        private val COVER_SCREEN_PARAMS = FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+    }
 
     private val activityForResult =
         activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

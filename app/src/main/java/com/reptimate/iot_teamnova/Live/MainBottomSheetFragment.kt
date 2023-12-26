@@ -28,9 +28,9 @@ class MainBottomSheetFragment(context: Context, mainActivity: LiveActivity) : Bo
     private var Type: Int = 0
     private lateinit var view: View
 
-    private lateinit var resolutionTv: TextView
-    private lateinit var fpsTv: TextView
-    private lateinit var maxnumTv: TextView
+//    private lateinit var resolutionTv: TextView
+//    private lateinit var fpsTv: TextView
+//    private lateinit var maxnumTv: TextView
     private lateinit var cancelBtn: TextView
     private lateinit var onoffValue: TextView
     private lateinit var broadcastTimeValue: TextView
@@ -87,13 +87,13 @@ class MainBottomSheetFragment(context: Context, mainActivity: LiveActivity) : Bo
         }else{
             view = inflater.inflate(R.layout.streaming_setting, container, false)
 
-            resolutionTv = view.findViewById(R.id.resolution_tv)
-            fpsTv = view.findViewById(R.id.fps_tv)
-            maxnumTv = view.findViewById(R.id.maxnum_tv)
-
-            resolutionTv.setOnClickListener(this)
-            fpsTv.setOnClickListener(this)
-            maxnumTv.setOnClickListener(this)
+//            resolutionTv = view.findViewById(R.id.resolution_tv)
+//            fpsTv = view.findViewById(R.id.fps_tv)
+//            maxnumTv = view.findViewById(R.id.maxnum_tv)
+//
+//            resolutionTv.setOnClickListener(this)
+//            fpsTv.setOnClickListener(this)
+//            maxnumTv.setOnClickListener(this)
 
             //기본 데이터 세팅
             setViewData()
@@ -145,7 +145,7 @@ class MainBottomSheetFragment(context: Context, mainActivity: LiveActivity) : Bo
 
 //        broadcastTimeValue = view.findViewById(R.id.broadcast_time_value)
         //textview 를 못잡고 에러가 나네.. 어떻게 바꿀까
-        broadcastTimeValue.text = Visible_Time
+//        broadcastTimeValue.text = Visible_Time
     }
 
     //subBottomSheet에서 선택한 정보
@@ -153,12 +153,12 @@ class MainBottomSheetFragment(context: Context, mainActivity: LiveActivity) : Bo
 
         if(mainType == "resolution"){
             resolutionSearch(position);
-            resolutionTv.text = "${ResWidthVal} X ${ResHeightVal}"
+//            resolutionTv.text = "${ResWidthVal} X ${ResHeightVal}"
 
             //Streaming_screen으로 데이터 전송
             mainActivity.setChangeData(mainType, position)
         }else if(mainType == "fps"){
-            fpsTv.text = "${fps_list[position].name} fps"
+//            fpsTv.text = "${fps_list[position].name} fps"
             FpsVal = fps_list[position].name.toInt()
 
             //Streaming_screen으로 데이터 전송
@@ -178,7 +178,7 @@ class MainBottomSheetFragment(context: Context, mainActivity: LiveActivity) : Bo
     fun returnSubData_Maxnum(mainType:String, value: Int){
         if(mainType == "maxnum"){
             this.MaxNumVal = value
-            maxnumTv.text = "${value} 명"
+//            maxnumTv.text = "${value} 명"
             mainActivity.setChangeData(mainType, MaxNumVal)
         }
     }
@@ -198,9 +198,9 @@ class MainBottomSheetFragment(context: Context, mainActivity: LiveActivity) : Bo
     }
 
     fun setViewData(){
-        resolutionTv.text = "${ResWidthVal} X ${ResHeightVal}"
-        fpsTv.text = "${FpsVal} fps"
-        maxnumTv.text = "${MaxNumVal} 명"
+//        resolutionTv.text = "${ResWidthVal} X ${ResHeightVal}"
+//        fpsTv.text = "${FpsVal} fps"
+//        maxnumTv.text = "${MaxNumVal} 명"
     }
 
     //투명설정

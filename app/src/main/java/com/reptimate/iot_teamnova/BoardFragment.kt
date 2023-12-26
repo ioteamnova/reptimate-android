@@ -89,7 +89,7 @@ class BoardFragment : Fragment() {
         webView.addJavascriptInterface(WebAppInterface(requireActivity()), "Android")
 
         // URL에 데이터 추가하여 로딩
-        val url = "https://web.reptimate.store/"
+        val url = "https://web.reptimate.store/community/adoption"
         webView.loadUrl(url)
 
         swipeRefreshLayout.setOnRefreshListener {

@@ -97,7 +97,7 @@ class PreferenceUtil(context : Context) {
                     editor.commit()
                     Toast.makeText(
                         MainApplication.context(),
-                        "리프레시 토큰이 만료되었습니다.\n다시 로그인이 필요합니다.", Toast.LENGTH_SHORT
+                        "유저 로그인 정보가 만료되었습니다.\n다시 로그인 해주세요.", Toast.LENGTH_SHORT
                     ).show()
                     callback(false)
 
